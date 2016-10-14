@@ -5,25 +5,44 @@ public class Matrix {
     private int n, m;
 
     public Matrix(int n, int m) {
-        // TODO: check positive n, m
+        checkDimensions(n, m);
         M = new int[n][m];
     }
 
     public Matrix(int A[][]) {
+        checkArrayDimensions(A);
         M = A;
-        // suppose has correct dimension
         n = A.length;
         m = A[0].length;
     }
 
     public Matrix(int A[], int n, int m) {
-        // TODO: check n, m
+        checkDimensions(n, m);
+        if (A.length != n * m) {
+            throw new IllegalArgumentException(
+                    "Array must have enough elements");
+        }
+
         M = new int[n][m];
         this.n = n;
         this.m = m;
         for (int i = 0; i < n; i++) {
             System.arraycopy(A, i * m, M[i], 0, m);
         }
+    }
+
+    public Matrix multiply(Matrix second) {
+        final Matrix result = new Matrix(n, second.m);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < second.m; j++) {
+                int scalarProduct = 0;
+                for (int k = 0; k < m; k++) {
+                    scalarProduct += M[i][k] * second.M[k][j];
+                }
+                result.setElement(i, j, scalarProduct);
+            }
+        }
+        return result;
     }
 
     @Override
@@ -38,23 +57,32 @@ public class Matrix {
         return sb.toString();
     }
 
-    public Matrix multiply(Matrix second) {
-        // TODO: check second
-        final Matrix result = new Matrix(n, second.m);
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < second.m; j++) {
-                int scalarProduct = 0;
-                for (int k = 0; k < m; k++) {
-                    scalarProduct += M[i][k] * second.M[k][j];
-                }
-                result.setElement(i, j, scalarProduct);
+    public int[][] getArray() {
+        return M.clone();
+    }
+
+    private void checkDimensions(int n, int m) {
+        if (n <= 0 || m <= 0) {
+            throw new IllegalArgumentException(
+                    "Dimensions must be positive numbers");
+        }
+    }
+
+    private void checkArrayDimensions(int[][] A) {
+        if (A == null) {
+            throw new IllegalArgumentException(
+                    "Array must be correct matrix");
+        }
+        int m = A[0].length;
+        for (int[] row : A) {
+            if (row.length != m) {
+                throw new IllegalArgumentException(
+                        "Array must be correct matrix");
             }
         }
-        return result;
     }
 
     private void setElement(int i, int j, int value) {
-        // TODO: check i, j
         M[i][j] = value;
     }
 }
