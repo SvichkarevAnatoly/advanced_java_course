@@ -69,4 +69,18 @@ public class MatrixParserTest {
         final MatrixParser parser = new MatrixParser();
         parser.parse(args);
     }
+
+    @Test
+    public void testColumnsNumberNotEqualRowsNumber() throws Exception {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage("Two matrices can be multiplied only" +
+                "when the number of columns in the first" +
+                "equals the number of rows in the second");
+
+        final String args[] = {"3", "3", "2", "2",
+                "1", "0", "0", "1", "0", "1", "1", "0", "1",
+                "-1", "-1", "-1", "-1"};
+        final MatrixParser parser = new MatrixParser();
+        parser.parse(args);
+    }
 }

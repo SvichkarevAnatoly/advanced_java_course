@@ -63,6 +63,12 @@ public class MatrixParser {
             throw new IllegalArgumentException(
                     "Number of args must be correct with dimensions");
         }
+        if (inputNumbers[1] != inputNumbers[2]) {
+            throw new IllegalArgumentException(
+                    "Two matrices can be multiplied only" +
+                            "when the number of columns in the first" +
+                            "equals the number of rows in the second");
+        }
     }
 
     private void castToNumbers(String[] input) {
