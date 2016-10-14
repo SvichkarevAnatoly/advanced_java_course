@@ -79,7 +79,7 @@ public class MatrixParser {
                     .toArray();
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
-                    "Could not cast args to numbers");
+                    "Could not cast args to integers");
         }
     }
 }
