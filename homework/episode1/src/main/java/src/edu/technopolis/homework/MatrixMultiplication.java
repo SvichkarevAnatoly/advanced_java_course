@@ -13,13 +13,13 @@ public class MatrixMultiplication {
             return;
         }
 
-        final MatrixParser parser = new MatrixParser();
+        final Parser parser = new Parser();
         try {
             parser.parse(args);
 
             final Matrix A = parser.getA();
             final Matrix B = parser.getB();
-            final Matrix AB = A.multiply(B);
+            final BigMatrix AB = A.multiply(B);
             System.out.println(AB);
         } catch (IllegalArgumentException | IllegalStateException e) {
             System.out.println(e.getMessage());

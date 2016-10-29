@@ -4,15 +4,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import src.edu.technopolis.homework.Matrix;
-import src.edu.technopolis.homework.MatrixParser;
+import src.edu.technopolis.homework.Parser;
 
 import static org.junit.Assert.assertArrayEquals;
 
-public class MatrixParserTest {
+public class ParserTest {
     @Test
     public void simpleExample() throws Exception {
         final String args[] = "2 2 2 1 1 0 0 1 -1 -1".split("\\s+");
-        final MatrixParser parser = new MatrixParser();
+        final Parser parser = new Parser();
         parser.parse(args);
 
         final Matrix A = parser.getA();
@@ -27,7 +27,7 @@ public class MatrixParserTest {
         final String args = "3 3 3 3 " +
                 "5 8 -4 6 9 -5 4 7 -3 " +
                 "3 2 5 4 -1 3 9 6 5";
-        final MatrixParser parser = new MatrixParser();
+        final Parser parser = new Parser();
         parser.parse(args.split("\\s+"));
 
         final Matrix A = parser.getA();
@@ -47,7 +47,7 @@ public class MatrixParserTest {
                 "4 dimensions and at least 2 scalars");
 
         final String args[] = {"2", "2"};
-        final MatrixParser parser = new MatrixParser();
+        final Parser parser = new Parser();
         parser.parse(args);
     }
 
@@ -57,7 +57,7 @@ public class MatrixParserTest {
         expectedEx.expectMessage("Dimensions must be positive number");
 
         final String args[] = {"-1", "1", "1", "1", "5", "6"};
-        final MatrixParser parser = new MatrixParser();
+        final Parser parser = new Parser();
         parser.parse(args);
     }
 
@@ -67,7 +67,7 @@ public class MatrixParserTest {
         expectedEx.expectMessage("Number of args must be correct with dimensions");
 
         final String args[] = {"2", "1", "1", "1", "5", "6"};
-        final MatrixParser parser = new MatrixParser();
+        final Parser parser = new Parser();
         parser.parse(args);
     }
 
@@ -76,7 +76,7 @@ public class MatrixParserTest {
         expectedEx.expect(IllegalStateException.class);
         expectedEx.expectMessage("Matrix A not initialized");
 
-        final MatrixParser parser = new MatrixParser();
+        final Parser parser = new Parser();
         parser.getA();
     }
 
@@ -85,7 +85,7 @@ public class MatrixParserTest {
         expectedEx.expect(IllegalStateException.class);
         expectedEx.expectMessage("Matrix B not initialized");
 
-        final MatrixParser parser = new MatrixParser();
+        final Parser parser = new Parser();
         parser.getB();
     }
 
@@ -97,7 +97,7 @@ public class MatrixParserTest {
         final String args[] = {"two", "2", "2", "1",
                 "1", "0", "0", "1",
                 "-1", "-1"};
-        final MatrixParser parser = new MatrixParser();
+        final Parser parser = new Parser();
         parser.parse(args);
     }
 
@@ -111,7 +111,7 @@ public class MatrixParserTest {
         final String args[] = {"3", "3", "2", "2",
                 "1", "0", "0", "1", "0", "1", "1", "0", "1",
                 "-1", "-1", "-1", "-1"};
-        final MatrixParser parser = new MatrixParser();
+        final Parser parser = new Parser();
         parser.parse(args);
     }
 }

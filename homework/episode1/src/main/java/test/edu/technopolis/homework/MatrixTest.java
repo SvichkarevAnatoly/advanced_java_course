@@ -3,32 +3,21 @@ package test.edu.technopolis.homework;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import src.edu.technopolis.homework.BigMatrix;
 import src.edu.technopolis.homework.Matrix;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class MatrixTest {
-    @Test
-    public void EAndVectorReturnArray() {
-        final int arrA[][] = {{1, 0}, {0, 1}};
-        final int arrB[][] = {{-1}, {-1}};
-        final Matrix A = new Matrix(arrA);
-        final Matrix B = new Matrix(arrB);
-        final Matrix C = A.multiply(B);
-
-        assertArrayEquals(arrB, C.getArray());
-    }
-
     @Test
     public void EAndVectorReturnString() {
         final int arrA[][] = {{1, 0}, {0, 1}};
         final int arrB[][] = {{-1}, {-1}};
         final Matrix A = new Matrix(arrA);
         final Matrix B = new Matrix(arrB);
-        final Matrix C = A.multiply(B);
+        final BigMatrix C = A.multiply(B);
 
-        assertEquals("-1 \n-1 \n", C.toString());
+        assertEquals("-1\n-1", C.toString());
     }
 
     @Test
@@ -37,11 +26,9 @@ public class MatrixTest {
         final int arrB[][] = {{3, 2, 5}, {4, -1, 3}, {9, 6, 5}};
         final Matrix A = new Matrix(arrA);
         final Matrix B = new Matrix(arrB);
-        final Matrix C = A.multiply(B);
+        final BigMatrix C = A.multiply(B);
 
-        assertArrayEquals(
-                new int[][]{{11, -22, 29}, {9, -27, 32}, {13, -17, 26}},
-                C.getArray());
+        assertEquals("11\t-22\t29\n9\t-27\t32\n13\t-17\t26", C.toString());
     }
 
     @Test
@@ -50,10 +37,20 @@ public class MatrixTest {
         final int arrB[][] = {{3, 2, 5}, {4, -1, 3}, {9, 6, 5}};
         final Matrix A = new Matrix(arrA);
         final Matrix B = new Matrix(arrB);
-        final Matrix C = A.multiply(B);
+        final BigMatrix C = A.multiply(B);
 
-        assertEquals("11 -22 29 \n9 -27 32 \n13 -17 26 \n",
-                C.toString());
+        assertEquals("11\t-22\t29\n9\t-27\t32\n13\t-17\t26", C.toString());
+    }
+
+    @Test
+    public void bigIntegerElement() throws Exception {
+        final int arrA[][] = {{Integer.MAX_VALUE, Integer.MAX_VALUE}, {0, 0}};
+        final int arrB[][] = {{Integer.MAX_VALUE}, {Integer.MAX_VALUE}};
+        final Matrix A = new Matrix(arrA);
+        final Matrix B = new Matrix(arrB);
+        final BigMatrix C = A.multiply(B);
+
+        assertEquals("9223372028264841218\n0", C.toString());
     }
 
     @Rule

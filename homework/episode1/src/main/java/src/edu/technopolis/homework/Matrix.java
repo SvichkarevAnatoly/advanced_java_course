@@ -1,5 +1,8 @@
 package src.edu.technopolis.homework;
 
+import java.math.BigInteger;
+import java.util.StringJoiner;
+
 public class Matrix {
     private int M[][];
     private int n, m;
@@ -31,13 +34,16 @@ public class Matrix {
         }
     }
 
-    public Matrix multiply(Matrix second) {
-        final Matrix result = new Matrix(n, second.m);
+    public BigMatrix multiply(Matrix second) {
+        final BigMatrix result = new BigMatrix(n, second.m);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < second.m; j++) {
-                int scalarProduct = 0;
+                BigInteger scalarProduct = BigInteger.ZERO;
                 for (int k = 0; k < m; k++) {
-                    scalarProduct += M[i][k] * second.M[k][j];
+                    final BigInteger Mik = BigInteger.valueOf(M[i][k]);
+                    final BigInteger Mkj = BigInteger.valueOf(second.M[k][j]);
+                    final BigInteger product = Mik.multiply(Mkj);
+                    scalarProduct = scalarProduct.add(product);
                 }
                 result.setElement(i, j, scalarProduct);
             }
@@ -47,14 +53,15 @@ public class Matrix {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
+        final StringJoiner sj = new StringJoiner("\n");
         for (int A[] : M) {
+            final StringJoiner sjRow = new StringJoiner("\t");
             for (int aij : A) {
-                sb.append(aij).append(" ");
+                sjRow.add(String.valueOf(aij));
             }
-            sb.append('\n');
+            sj.add(sjRow.toString());
         }
-        return sb.toString();
+        return sj.toString();
     }
 
     public int[][] getArray() {

@@ -2,7 +2,7 @@ package src.edu.technopolis.homework;
 
 import java.util.Arrays;
 
-public class MatrixParser {
+public class Parser {
     private static final int NUMBER_OF_DIM = 4;
 
     private int inputNumbers[];
