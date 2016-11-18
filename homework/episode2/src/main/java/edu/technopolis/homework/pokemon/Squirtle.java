@@ -15,6 +15,7 @@ public class Squirtle extends Pokemon {
     }
 
     private void init() {
+        name = "Squirtle";
         attackPower = 30;
         defencePower = 30;
     }

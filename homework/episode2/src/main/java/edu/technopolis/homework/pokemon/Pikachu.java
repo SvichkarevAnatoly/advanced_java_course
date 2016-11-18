@@ -15,6 +15,7 @@ public class Pikachu extends Pokemon {
     }
 
     private void init() {
+        name = "Pikachu";
         attackPower = 40;
         defencePower = 10;
     }

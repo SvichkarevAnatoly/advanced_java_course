@@ -3,6 +3,7 @@ package edu.technopolis.homework.pokemon;
 import java.util.Random;
 
 public abstract class Pokemon {
+    protected String name;
     protected int health = 100;
     protected int attackPower;
     protected int defencePower;
@@ -24,11 +25,20 @@ public abstract class Pokemon {
         return 2 * random.nextInt(attackPower);
     }
 
-    public void defence(int attack){
+    public int defence(int attack){
         final int defence = random.nextInt(defencePower);
-        if (attack > defence) {
-            health -= attack - defence;
+        final int damage = attack > defence ? attack - defence : 0;
+        if (damage > 0) {
+            health -= damage;
+            health = health < 0 ? 0 : health;
         }
+        return damage;
+    }
+
+    public int receiveDamage(int damage) {
+        health -= damage;
+        health = health < 0 ? 0 : health;
+        return damage;
     }
 
     void nothing(){}
@@ -47,5 +57,10 @@ public abstract class Pokemon {
 
     public int getDefencePower() {
         return defencePower;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
